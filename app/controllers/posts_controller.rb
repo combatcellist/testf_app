@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
+  before_action :authenticate_user!
   before_action :find_post, only: [:show, :edit, :update, :destroy]
+  before_action :force_redirect_unless_my_post, only: [:edit, :update, :destroy]
 
   def index
     @posts = Post.all
@@ -9,6 +11,7 @@ class PostsController < ApplicationController
   end
 
   def new
+    return redirect_to new_profile_path, alert: "プロフィールを登録してください" if current_user.profile.blank?
     @post = Post.new
   end
 
@@ -48,4 +51,9 @@ class PostsController < ApplicationController
   def post_params
     params.require(:post).permit(:content, images: [])
   end
+
+  def force_redirect_unless_my_post
+    return redirect_to root_path, alert: "自分の投稿ではありません" if @post.user != current_user
+  end
+
 end
