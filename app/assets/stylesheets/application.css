@@ -61,3 +61,14 @@ body {
 #footer p {
   margin: 0;
 }
+
+.toast {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.toast .notice {
+  background-color: green;
+  color: #fff;
+  padding: 10px;
+}
