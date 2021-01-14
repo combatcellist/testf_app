@@ -4,16 +4,20 @@
   <div class="content">
     <div class="user-about">
      <div class="image">
-       <%= image_tag "IMG_6389.jpg" %>
+        <% if post.user.image.attached? %>
+          <%= image_tag post.user.image %>
+        <% else %>
+          <%= image_tag "nouser.png" %>
+        <% end %>
      </div>
      <div class="profile">
       
        <div class="name">
-        だーーん
+        <%= post.user.name %>
        </div>
       
       <div class="purpose">
-        東京のディープな店を制覇したい！
+        <%= "お一言: #{post.user.purpose}" %>
       </div>
      </div>
     </div>
